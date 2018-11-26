@@ -1,7 +1,8 @@
 using FluentAssertions;
+using RoverDojo.Services.Impl;
 using Xunit;
 
-namespace RoverDojo.Tests
+namespace RoverDojo.Tests.Services
 {
     public class RoverStateMachineShould
     {

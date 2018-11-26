@@ -1,4 +1,6 @@
-﻿namespace RoverDojo
+﻿using RoverDojo.Services.Contract;
+
+namespace RoverDojo.Services.Impl
 {
     public class RoverStateMachine : IRoverStateMachine
     {
@@ -18,12 +20,5 @@
         {
             State = RoverState.Stopped;
         }
-    }
-
-    public interface IRoverStateMachine
-    {
-        RoverState State { get; }
-        void SetOperating();
-        void SetStopped();
     }
 }

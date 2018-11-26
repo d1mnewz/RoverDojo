@@ -1,4 +1,5 @@
 ﻿using System;
+using RoverDojo.Services.Contract;
 
 namespace RoverDojo
 {
@@ -8,12 +9,15 @@ namespace RoverDojo
         public Point CurrentRoverPosition { get; private set; }
 
         private readonly IRoverStateMachine _stateMachine;
+        private readonly ICommandReader _commandReader;
         private const RoverFacingDirection InitialRoverDirection = RoverFacingDirection.North;
         private static readonly Point InitialRoverPosition = new Point(0, 0);
 
-        public Rover(IRoverStateMachine stateMachine)
+        public Rover(IRoverStateMachine stateMachine, ICommandReader commandReader)
         {
             _stateMachine = stateMachine;
+            _commandReader = commandReader;
+
             CurrentRoverFacingDirection = InitialRoverDirection;
             CurrentRoverPosition = InitialRoverPosition;
         }
@@ -22,12 +26,7 @@ namespace RoverDojo
         {
             while (_stateMachine.State is RoverState.Operating)
             {
-                var command = Console.ReadLine();
-                if (command != "L" && command != "R" && command != "F")
-                {
-                    _stateMachine.SetStopped();
-                    // Log invalid command and stop app.
-                }
+                var command = _commandReader.ReadCommand();
 
                 switch (command)
                 {

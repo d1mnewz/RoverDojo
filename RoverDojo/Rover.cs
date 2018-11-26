@@ -4,18 +4,21 @@ namespace RoverDojo
 {
     public class Rover
     {
+        public RoverFacingDirection CurrentRoverFacingDirection { get; private set; }
+        
         private readonly IRoverStateMachine _stateMachine;
+        private const RoverFacingDirection InitialRoverFacingDirection = RoverFacingDirection.North;
 
         public Rover(IRoverStateMachine stateMachine)
         {
             _stateMachine = stateMachine;
+            CurrentRoverFacingDirection = InitialRoverFacingDirection;
         }
 
         public void Operate()
         {
             var roverPositionX = 0;
             var roverPositionY = 0;
-            var roverFacing = RoverFacingDirection.North;
 
             while (_stateMachine.State is RoverState.Operating)
             {
@@ -29,19 +32,21 @@ namespace RoverDojo
                 switch (command)
                 {
                     case "L":
-                        roverFacing = roverFacing == RoverFacingDirection.North
+                        CurrentRoverFacingDirection = CurrentRoverFacingDirection == RoverFacingDirection.North
                             ? RoverFacingDirection.West
-                            : (RoverFacingDirection) ((int) roverFacing - 1);
-                        Console.WriteLine($"Rover is now at {roverPositionX}, {roverPositionY} - facing {roverFacing}");
+                            : (RoverFacingDirection) ((int) CurrentRoverFacingDirection - 1);
+                        Console.WriteLine(
+                            $"Rover is now at {roverPositionX}, {roverPositionY} - facing {CurrentRoverFacingDirection}");
                         break;
                     case "R":
-                        roverFacing = roverFacing == RoverFacingDirection.West
+                        CurrentRoverFacingDirection = CurrentRoverFacingDirection == RoverFacingDirection.West
                             ? RoverFacingDirection.North
-                            : (RoverFacingDirection) ((int) roverFacing + 1);
-                        Console.WriteLine($"Rover is now at {roverPositionX}, {roverPositionY} - facing {roverFacing}");
+                            : (RoverFacingDirection) ((int) CurrentRoverFacingDirection + 1);
+                        Console.WriteLine(
+                            $"Rover is now at {roverPositionX}, {roverPositionY} - facing {CurrentRoverFacingDirection}");
                         break;
                     case "F":
-                        switch (roverFacing)
+                        switch (CurrentRoverFacingDirection)
                         {
                             case RoverFacingDirection.North:
                                 roverPositionX++;
@@ -57,7 +62,8 @@ namespace RoverDojo
                                 break;
                         }
 
-                        Console.WriteLine($"Rover is now at {roverPositionX}, {roverPositionY} - facing {roverFacing}");
+                        Console.WriteLine(
+                            $"Rover is now at {roverPositionX}, {roverPositionY} - facing {InitialRoverFacingDirection}");
                         break;
                     default:
                         throw new Exception("invalid command");

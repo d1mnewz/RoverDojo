@@ -7,6 +7,15 @@ namespace RoverDojo.Tests
     public class RoverShould
     {
         [Fact]
+        public void BeValid()
+        {
+            var sut = new Rover(new MockRoverStateMachine());
+
+            sut.CurrentRoverFacingDirection.Should().Be(RoverFacingDirection.North);
+        }
+
+
+        [Fact]
         public void RunInfiniteLoopForOperatingRoverState()
         {
             var mockRoverStateMachine = new MockRoverStateMachine { State = RoverState.Operating };
@@ -15,7 +24,7 @@ namespace RoverDojo.Tests
             rover.ExecutionTimeOf(r => rover.Operate()).Should()
                 .BeGreaterThan(TimeSpan.FromSeconds(10), ">10s considered as infinite loop");
         }
-        
+
         [Fact]
         public void StopInLess1SecForStoppedRoverState()
         {

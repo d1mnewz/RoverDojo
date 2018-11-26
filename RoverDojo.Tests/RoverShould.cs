@@ -12,6 +12,7 @@ namespace RoverDojo.Tests
             var sut = new Rover(new MockRoverStateMachine());
 
             sut.CurrentRoverFacingDirection.Should().Be(RoverFacingDirection.North);
+            sut.CurrentRoverPosition.Should().BeEquivalentTo(new Point(0, 0));
         }
 
 

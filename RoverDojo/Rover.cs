@@ -17,11 +17,14 @@ namespace RoverDojo
             var roverPositionY = 0;
             var roverFacing = RoverFacingDirection.North;
 
-            while (_stateMachine.State == RoverState.Operating)
+            while (_stateMachine.State is RoverState.Operating)
             {
                 var command = Console.ReadLine();
                 if (command != "L" && command != "R" && command != "F")
-                    throw new Exception("invalid command");
+                {
+                    _stateMachine.SetStopped();
+                    // Log invalid command and stop app.
+                }
 
                 switch (command)
                 {

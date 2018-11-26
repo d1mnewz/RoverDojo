@@ -2,6 +2,7 @@
 {
     public enum RoverState
     {
-        Operating
+        Operating,
+        Stopped
     }
 }

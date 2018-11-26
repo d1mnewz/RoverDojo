@@ -11,7 +11,7 @@ namespace RoverDojo.Tests
         {
             var rover = new Rover();
 
-            rover.ExecutionTimeOf(r => Rover.Main()).Should().BeGreaterThan(TimeSpan.FromSeconds(10), ">10s considered as infinite loop");
+            rover.ExecutionTimeOf(r => rover.Operate()).Should().BeGreaterThan(TimeSpan.FromSeconds(10), ">10s considered as infinite loop");
         }
     }
 }

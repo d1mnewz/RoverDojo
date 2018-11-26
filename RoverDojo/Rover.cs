@@ -2,6 +2,16 @@
 
 namespace RoverDojo
 {
+
+    public class Program
+    {
+        public static void Main()
+        {
+            var rover = new Rover();
+            rover.Operate();
+        }
+    }
+
     public class Rover
     {
         public enum RoverFacing
@@ -12,7 +22,7 @@ namespace RoverDojo
             West
         }
 
-        public static void Main()
+        public void Operate()
         {
             var roverPositionX = 0;
             var roverPositionY = 0;

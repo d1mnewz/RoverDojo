@@ -4,13 +4,20 @@ namespace RoverDojo
 {
     public class Rover
     {
+        private readonly IRoverStateMachine _stateMachine;
+
+        public Rover(IRoverStateMachine stateMachine)
+        {
+            _stateMachine = stateMachine;
+        }
+
         public void Operate()
         {
             var roverPositionX = 0;
             var roverPositionY = 0;
             var roverFacing = RoverFacingDirection.North;
 
-            while (true)
+            while (_stateMachine.State == RoverState.Operating)
             {
                 var command = Console.ReadLine();
                 if (command != "L" && command != "R" && command != "F")

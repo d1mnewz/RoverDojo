@@ -2,26 +2,8 @@
 
 namespace RoverDojo
 {
-
-    public class Program
-    {
-        public static void Main()
-        {
-            var rover = new Rover();
-            rover.Operate();
-        }
-    }
-
     public class Rover
     {
-        public enum RoverFacing
-        {
-            North,
-            East,
-            South,
-            West
-        }
-
         public void Operate()
         {
             var roverPositionX = 0;

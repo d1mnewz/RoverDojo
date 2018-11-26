@@ -8,7 +8,7 @@ namespace RoverDojo
         {
             var roverPositionX = 0;
             var roverPositionY = 0;
-            var roverFacing = RoverFacing.North;
+            var roverFacing = RoverFacingDirection.North;
 
             while (true)
             {
@@ -19,30 +19,30 @@ namespace RoverDojo
                 switch (command)
                 {
                     case "L":
-                        roverFacing = roverFacing == RoverFacing.North
-                            ? RoverFacing.West
-                            : (RoverFacing) ((int) roverFacing - 1);
+                        roverFacing = roverFacing == RoverFacingDirection.North
+                            ? RoverFacingDirection.West
+                            : (RoverFacingDirection) ((int) roverFacing - 1);
                         Console.WriteLine($"Rover is now at {roverPositionX}, {roverPositionY} - facing {roverFacing}");
                         break;
                     case "R":
-                        roverFacing = roverFacing == RoverFacing.West
-                            ? RoverFacing.North
-                            : (RoverFacing) ((int) roverFacing + 1);
+                        roverFacing = roverFacing == RoverFacingDirection.West
+                            ? RoverFacingDirection.North
+                            : (RoverFacingDirection) ((int) roverFacing + 1);
                         Console.WriteLine($"Rover is now at {roverPositionX}, {roverPositionY} - facing {roverFacing}");
                         break;
                     case "F":
                         switch (roverFacing)
                         {
-                            case RoverFacing.North:
+                            case RoverFacingDirection.North:
                                 roverPositionX++;
                                 break;
-                            case RoverFacing.East:
+                            case RoverFacingDirection.East:
                                 roverPositionY++;
                                 break;
-                            case RoverFacing.South:
+                            case RoverFacingDirection.South:
                                 roverPositionX--;
                                 break;
-                            case RoverFacing.West:
+                            case RoverFacingDirection.West:
                                 roverPositionY--;
                                 break;
                         }

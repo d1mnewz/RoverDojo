@@ -1,6 +1,6 @@
 ﻿namespace RoverDojo
 {
-    public enum RoverFacing
+    public enum RoverFacingDirection
     {
         North,
         East,

@@ -2,6 +2,11 @@
 {
     public class RoverStateMachine : IRoverStateMachine
     {
+        public RoverStateMachine()
+        {
+            State = RoverState.Operating;
+        }
+
         public RoverState State { get; private set; }
 
         public void SetOperating()

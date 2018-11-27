@@ -11,6 +11,7 @@ namespace RoverDojo.Tests.Core.Data
         {
             var direction = Direction.East;
             var position = new Point(0, 0);
+            
             var sut = new Vector(direction, position);
 
             sut.Position.Should().BeEquivalentTo(position);

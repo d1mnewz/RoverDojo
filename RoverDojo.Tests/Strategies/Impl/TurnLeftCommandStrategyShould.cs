@@ -7,10 +7,11 @@ namespace RoverDojo.Tests.Strategies.Impl
 {
     public class TurnLeftCommandStrategyShould
     {
-        [Fact]
-        public void BeValid()
+        private readonly TurnLeftCommandStrategy _sut;
+
+        public TurnLeftCommandStrategyShould()
         {
-            var strategy = new TurnLeftCommandStrategy();
+            _sut = new TurnLeftCommandStrategy();
         }
 
         [Theory]
@@ -20,10 +21,9 @@ namespace RoverDojo.Tests.Strategies.Impl
         [InlineData(Direction.East, Direction.North)]
         public void ReturnCorrectVector(Direction initialDirection, Direction expectedDirection)
         {
-            var strategy = new TurnLeftCommandStrategy();
             var initialVector = new Vector(initialDirection, new Point(0, 0));
 
-            var finalVector = strategy.Apply(initialVector);
+            var finalVector = _sut.Apply(initialVector);
 
             finalVector.Direction.Should().Be(expectedDirection);
         }

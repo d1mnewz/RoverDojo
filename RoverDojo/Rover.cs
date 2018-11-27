@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
 using RoverDojo.Core.Data;
 using RoverDojo.Services;
 using RoverDojo.Services.Contract;
@@ -9,34 +9,34 @@ namespace RoverDojo
     {
         public Vector CurrentVector { get; private set; }
 
-        private readonly IRoverStateMachine _stateMachine;
+        public IRoverStateMachine StateMachine { get; }
         private readonly ICommandReader _commandReader;
+        private readonly ICommandStrategiesFactory _commandStrategiesFactory;
+        private readonly ILogger _logger;
         private const Direction InitialRoverDirection = Direction.North;
         private static readonly Point InitialRoverPosition = new Point(0, 0);
-        private readonly CommandStrategiesFactory _commandStrategiesFactory;
 
         public Rover(IRoverStateMachine stateMachine, ICommandReader commandReader,
-            CommandStrategiesFactory commandStrategiesFactory)
+            ICommandStrategiesFactory commandStrategiesFactory, ILogger logger)
         {
-            _stateMachine = stateMachine;
+            StateMachine = stateMachine;
             _commandReader = commandReader;
             _commandStrategiesFactory = commandStrategiesFactory;
+            _logger = logger;
 
             CurrentVector = new Vector(InitialRoverDirection, InitialRoverPosition);
         }
 
         public void Operate()
         {
-            while (_stateMachine.State is RoverState.Operating)
+            while (StateMachine.State is RoverState.Operating)
             {
                 var command = _commandReader.ReadCommand();
 
                 var strategy = _commandStrategiesFactory.GetCommandStrategy(command);
 
                 CurrentVector = strategy.Apply(CurrentVector);
-
-                // TODO: use logger instead
-                Console.WriteLine(
+                _logger.LogInformation(
                     $"Rover is now at {CurrentVector.Position.X}, {CurrentVector.Position.Y} - facing {CurrentVector.Direction}");
             }
         }

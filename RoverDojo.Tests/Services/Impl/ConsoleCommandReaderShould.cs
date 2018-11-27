@@ -1,6 +1,8 @@
 using System;
 using System.IO;
 using FluentAssertions;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using RoverDojo.Core.Data;
 using RoverDojo.Services.Impl;
 using Xunit;
@@ -9,10 +11,11 @@ namespace RoverDojo.Tests.Services.Impl
 {
     public class ConsoleCommandReaderShould
     {
-        [Fact]
-        public void BeValid()
+        private ConsoleCommandReader _sut;
+
+        public ConsoleCommandReaderShould()
         {
-            var sut = new ConsoleCommandReader(new RoverStateMachine());
+            _sut = new ConsoleCommandReader(new RoverStateMachine(), Substitute.For<ILogger>());
         }
 
         [Theory]
@@ -21,12 +24,11 @@ namespace RoverDojo.Tests.Services.Impl
         [InlineData("F")]
         public void ReadCorretCommand(string expectedCommand)
         {
-            var sut = new ConsoleCommandReader(new RoverStateMachine());
             using (var sr = new StringReader(string.Format(expectedCommand,
                 Environment.NewLine)))
             {
                 Console.SetIn(sr);
-                var command = sut.ReadCommand();
+                var command = _sut.ReadCommand();
 
                 command.Should().Be(expectedCommand);
             }
@@ -35,12 +37,11 @@ namespace RoverDojo.Tests.Services.Impl
         [Fact]
         public void ReadIncorrectCommandAsNull()
         {
-            var sut = new ConsoleCommandReader(new RoverStateMachine());
             using (var sr = new StringReader(string.Format("test",
                 Environment.NewLine)))
             {
                 Console.SetIn(sr);
-                var command = sut.ReadCommand();
+                var command = _sut.ReadCommand();
 
                 command.Should().Be(null);
             }
@@ -49,14 +50,13 @@ namespace RoverDojo.Tests.Services.Impl
         [Fact]
         public void SetStateToStoppedAfterIncorrectInput()
         {
-            var sut = new ConsoleCommandReader(new RoverStateMachine());
             using (var sr = new StringReader(string.Format("test",
                 Environment.NewLine)))
             {
                 Console.SetIn(sr);
-                sut.ReadCommand();
+                _sut.ReadCommand();
 
-                sut.RoverStateMachine.State.Should().Be(RoverState.Stopped);
+                _sut.RoverStateMachine.State.Should().Be(RoverState.Stopped);
             }
         }
     }

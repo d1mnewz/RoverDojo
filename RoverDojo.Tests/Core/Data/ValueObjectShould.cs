@@ -30,6 +30,7 @@ namespace RoverDojo.Tests.Core.Data
                 Type = "cba",
                 TimeSpan = time
             };
+            
             vo.Should().Be(vo2);
         }
 
@@ -48,6 +49,7 @@ namespace RoverDojo.Tests.Core.Data
                 Type = "cba2",
                 TimeSpan = DateTime.UtcNow.TimeOfDay
             };
+            
             vo.Should().NotBe(null);
             vo.Should().NotBe(vo2);
         }

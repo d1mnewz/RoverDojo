@@ -8,10 +8,12 @@ namespace RoverDojo.Tests.Services
 {
     public class CommandStrategiesFactoryShould
     {
+        private CommandStrategiesFactory _sut;
+
         [Fact]
         public void BeValid()
         {
-            var sut = new CommandStrategiesFactory();
+            _sut = new CommandStrategiesFactory();
         }
 
         [Theory]
@@ -20,9 +22,9 @@ namespace RoverDojo.Tests.Services
         [InlineData("F", typeof(MoveForwardCommandStrategy))]
         public void GetCorrectCommandStrategy(string command, Type expectedType)
         {
-            var sut = new CommandStrategiesFactory();
+            _sut = new CommandStrategiesFactory();
 
-            var strategy = sut.GetCommandStrategy(command);
+            var strategy = _sut.GetCommandStrategy(command);
 
             strategy.GetType().Should().Be(expectedType);
         }

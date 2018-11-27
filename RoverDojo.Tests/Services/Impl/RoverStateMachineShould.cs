@@ -7,32 +7,33 @@ namespace RoverDojo.Tests.Services.Impl
 {
     public class RoverStateMachineShould
     {
+        private readonly RoverStateMachine _sut;
+
+        public RoverStateMachineShould()
+        {
+            _sut = new RoverStateMachine();
+        }
+
         [Fact]
         public void BeValid()
         {
-            var sut = new RoverStateMachine();
-
-            sut.State.Should().Be(RoverState.Operating);
+            _sut.State.Should().Be(RoverState.Operating);
         }
 
         [Fact]
         public void SetOperating()
         {
-            var sut = new RoverStateMachine();
+            _sut.SetOperating();
 
-            sut.SetOperating();
-
-            sut.State.Should().Be(RoverState.Operating);
+            _sut.State.Should().Be(RoverState.Operating);
         }
 
         [Fact]
         public void SetStopped()
         {
-            var sut = new RoverStateMachine();
+            _sut.SetStopped();
 
-            sut.SetStopped();
-
-            sut.State.Should().Be(RoverState.Stopped);
+            _sut.State.Should().Be(RoverState.Stopped);
         }
     }
 }

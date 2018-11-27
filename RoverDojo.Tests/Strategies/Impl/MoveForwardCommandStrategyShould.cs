@@ -7,20 +7,20 @@ namespace RoverDojo.Tests.Strategies.Impl
 {
     public class MoveForwardCommandStrategyShould
     {
-        [Fact]
-        public void BeValid()
+        private readonly MoveForwardCommandStrategy _sut;
+
+        public MoveForwardCommandStrategyShould()
         {
-            var sut = new MoveForwardCommandStrategy();
+            _sut = new MoveForwardCommandStrategy();
         }
 
         [Theory]
         [ClassData(typeof(MoveForwardWithinBoundariesTestData))]
         public void ReturnCorrectVector(Direction direction, Point initialPosition, Point expectedFinalPosition)
         {
-            var sut = new MoveForwardCommandStrategy();
             var initialVector = new Vector(direction, initialPosition);
 
-            var newVector = sut.Apply(initialVector);
+            var newVector = _sut.Apply(initialVector);
 
             newVector.Position.Should().BeEquivalentTo(expectedFinalPosition);
         }

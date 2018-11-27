@@ -1,10 +1,14 @@
-﻿using System;
-using RoverDojo.Strategies.Contract;
+﻿using RoverDojo.Strategies.Contract;
 using RoverDojo.Strategies.Impl;
 
 namespace RoverDojo.Services
 {
-    public class CommandStrategiesFactory
+    public interface ICommandStrategiesFactory
+    {
+        ICommandStrategy GetCommandStrategy(string command);
+    }
+
+    public class CommandStrategiesFactory : ICommandStrategiesFactory
     {
         public ICommandStrategy GetCommandStrategy(string command)
         {

@@ -1,6 +1,7 @@
 using System;
-using System.Threading;
 using FluentAssertions;
+using RoverDojo.Core.Data;
+using RoverDojo.Services;
 using RoverDojo.Services.Impl;
 using RoverDojo.Tests.Test.Mocks;
 using Xunit;
@@ -13,10 +14,11 @@ namespace RoverDojo.Tests
         public void BeValid()
         {
             var roverStateMachine = new RoverStateMachine();
-            var sut = new Rover(roverStateMachine, new ConsoleCommandReader(roverStateMachine));
+            var sut = new Rover(roverStateMachine, new ConsoleCommandReader(roverStateMachine),
+                new CommandStrategiesFactory());
 
-            sut.CurrentRoverFacingDirection.Should().Be(RoverFacingDirection.North);
-            sut.CurrentRoverPosition.Should().BeEquivalentTo(new Point(0, 0));
+            sut.CurrentVector.Direction.Should().Be(Direction.North);
+            sut.CurrentVector.Position.Should().BeEquivalentTo(new Point(0, 0));
         }
 
         [Fact]
@@ -26,7 +28,7 @@ namespace RoverDojo.Tests
             roverStateMachine.SetOperating();
 
             var mockCommandReader = new MockCommandReader();
-            var rover = new Rover(roverStateMachine, mockCommandReader);
+            var rover = new Rover(roverStateMachine, mockCommandReader, new CommandStrategiesFactory());
 
             rover.ExecutionTimeOf(r => rover.Operate()).Should()
                 .BeGreaterThan(TimeSpan.FromSeconds(10), ">10s considered as infinite loop");
@@ -37,7 +39,8 @@ namespace RoverDojo.Tests
         {
             var roverStateMachine = new RoverStateMachine();
             roverStateMachine.SetStopped();
-            var rover = new Rover(roverStateMachine, new ConsoleCommandReader(roverStateMachine));
+            var rover = new Rover(roverStateMachine, new ConsoleCommandReader(roverStateMachine),
+                new CommandStrategiesFactory());
 
             rover.ExecutionTimeOf(r => rover.Operate()).Should()
                 .BeLessThan(TimeSpan.FromSeconds(1));

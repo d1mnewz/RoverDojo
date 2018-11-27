@@ -1,4 +1,5 @@
-﻿using RoverDojo.Services.Impl;
+﻿using RoverDojo.Services;
+using RoverDojo.Services.Impl;
 
 namespace RoverDojo
 {
@@ -7,7 +8,8 @@ namespace RoverDojo
         public static void Main()
         {
             var roverStateMachine = new RoverStateMachine();
-            var rover = new Rover(roverStateMachine, new ConsoleCommandReader(roverStateMachine));
+            var rover = new Rover(roverStateMachine, new ConsoleCommandReader(roverStateMachine),
+                new CommandStrategiesFactory());
             rover.Operate();
         }
     }

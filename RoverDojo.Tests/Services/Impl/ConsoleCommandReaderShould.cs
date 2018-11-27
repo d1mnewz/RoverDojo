@@ -1,10 +1,11 @@
 using System;
 using System.IO;
 using FluentAssertions;
+using RoverDojo.Core.Data;
 using RoverDojo.Services.Impl;
 using Xunit;
 
-namespace RoverDojo.Tests.Services
+namespace RoverDojo.Tests.Services.Impl
 {
     public class ConsoleCommandReaderShould
     {

@@ -1,4 +1,4 @@
-﻿namespace RoverDojo
+﻿namespace RoverDojo.Core.Data
 {
     public enum RoverState
     {

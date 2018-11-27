@@ -1,6 +1,6 @@
-﻿namespace RoverDojo
+﻿namespace RoverDojo.Core.Data
 {
-    public enum RoverFacingDirection
+    public enum Direction
     {
         North,
         East,

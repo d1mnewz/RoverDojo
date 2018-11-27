@@ -1,4 +1,5 @@
-﻿using RoverDojo.Services.Contract;
+﻿using RoverDojo.Core.Data;
+using RoverDojo.Services.Contract;
 
 namespace RoverDojo.Services.Impl
 {

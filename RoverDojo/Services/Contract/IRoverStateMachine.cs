@@ -1,4 +1,6 @@
-﻿namespace RoverDojo.Services.Contract
+﻿using RoverDojo.Core.Data;
+
+namespace RoverDojo.Services.Contract
 {
     public interface IRoverStateMachine
     {

@@ -8,6 +8,7 @@ namespace RoverDojo.Tests.Test.Mocks
     {
         public string ReadCommand()
         {
+            // TODO: find more nice way
             Task.Delay(TimeSpan.FromSeconds(11)).Wait();
             throw new Exception("Fail");
         }

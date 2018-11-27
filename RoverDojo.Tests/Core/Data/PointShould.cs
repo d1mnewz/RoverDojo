@@ -1,9 +1,10 @@
 using FluentAssertions;
+using RoverDojo.Core.Data;
 using Xunit;
 
-namespace RoverDojo.Tests
+namespace RoverDojo.Tests.Core.Data
 {
-    public class PointShould
+    public class PointShould 
     {
         [Fact]
         public void BeValid()

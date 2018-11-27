@@ -19,6 +19,7 @@ namespace RoverDojo.Services.Impl
             {
                 RoverStateMachine.SetStopped();
                 return null;
+                // TODO:
                 // Log invalid command.
             }
 

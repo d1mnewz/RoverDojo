@@ -13,14 +13,14 @@ namespace RoverDojo
         private readonly ICommandReader _commandReader;
         private const Direction InitialRoverDirection = Direction.North;
         private static readonly Point InitialRoverPosition = new Point(0, 0);
-        private readonly CommandStrategiesFactory _handlecommandStrategiesFactory;
+        private readonly CommandStrategiesFactory _commandStrategiesFactory;
 
         public Rover(IRoverStateMachine stateMachine, ICommandReader commandReader,
-            CommandStrategiesFactory handlecommandStrategiesFactory)
+            CommandStrategiesFactory commandStrategiesFactory)
         {
             _stateMachine = stateMachine;
             _commandReader = commandReader;
-            _handlecommandStrategiesFactory = handlecommandStrategiesFactory;
+            _commandStrategiesFactory = commandStrategiesFactory;
 
             CurrentVector = new Vector(InitialRoverDirection, InitialRoverPosition);
         }
@@ -31,7 +31,7 @@ namespace RoverDojo
             {
                 var command = _commandReader.ReadCommand();
 
-                var strategy = _handlecommandStrategiesFactory.GetCommandStrategy(command);
+                var strategy = _commandStrategiesFactory.GetCommandStrategy(command);
 
                 CurrentVector = strategy.Apply(CurrentVector);
 

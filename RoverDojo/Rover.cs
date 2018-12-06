@@ -15,6 +15,7 @@ namespace RoverDojo
         private readonly ILogger _logger;
         private const Direction InitialRoverDirection = Direction.North;
         private static readonly Point InitialRoverPosition = new Point(0, 0);
+        private const int FieldSize = 4;
 
         public Rover(IRoverStateMachine stateMachine, ICommandReader commandReader,
             ICommandStrategiesFactory commandStrategiesFactory, ILogger logger)
@@ -35,7 +36,7 @@ namespace RoverDojo
 
                 var strategy = _commandStrategiesFactory.GetCommandStrategy(command);
 
-                CurrentVector = strategy.Apply(CurrentVector);
+                CurrentVector = strategy.Apply(CurrentVector, FieldSize);
                 _logger.LogInformation(
                     $"Rover is now at {CurrentVector.Position.X}, {CurrentVector.Position.Y} - facing {CurrentVector.Direction}");
             }

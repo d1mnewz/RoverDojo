@@ -15,15 +15,15 @@ namespace RoverDojo.Tests.Strategies.Impl
         }
 
         [Theory]
-        [InlineData(Direction.North, Direction.East)]
-        [InlineData(Direction.East, Direction.South)]
-        [InlineData(Direction.South, Direction.West)]
-        [InlineData(Direction.West, Direction.North)]
-        public void ReturnCorrectVector(Direction initialDirection, Direction expectedDirection)
+        [InlineData(Direction.North, Direction.East, 4)]
+        [InlineData(Direction.East, Direction.South, 4)]
+        [InlineData(Direction.South, Direction.West, 4)]
+        [InlineData(Direction.West, Direction.North, 4)]
+        public void ReturnCorrectVector(Direction initialDirection, Direction expectedDirection, int fieldSize)
         {
             var initialVector = new Vector(initialDirection, new Point(0, 0));
 
-            var finalVector = _sut.Apply(initialVector);
+            var finalVector = _sut.Apply(initialVector, fieldSize);
 
             finalVector.Direction.Should().Be(expectedDirection);
         }

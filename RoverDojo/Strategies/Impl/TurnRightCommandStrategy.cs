@@ -6,7 +6,7 @@ namespace RoverDojo.Strategies.Impl
 {
     public class TurnRightCommandStrategy : ICommandStrategy
     {
-        public Vector Apply(Vector vector)
+        public Vector Apply(Vector vector, int fieldSize)
         {
             Direction direction;
             switch (vector.Direction)

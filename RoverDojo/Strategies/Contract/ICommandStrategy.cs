@@ -4,6 +4,6 @@ namespace RoverDojo.Strategies.Contract
 {
     public interface ICommandStrategy
     {
-        Vector Apply(Vector vector);
+        Vector Apply(Vector vector, int fieldSize);
     }
 }
